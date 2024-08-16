@@ -1,5 +1,6 @@
 package project.view
 
+import project.MainApp
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.Scene
 import scalafx.scene.text.Text
@@ -12,6 +13,7 @@ import scala.util.Random
 
 @sfxml
 class GameController(val timerText: Text, val multiplierText:Text, comboText: Text, val scoreText: Text, val livesText: Text, val arrowDisplay: Text) {
+
   private var stage: PrimaryStage = _
   private var difficulty: Difficulty = Easy // Default difficulty
   private var score: Int = 0
@@ -33,6 +35,10 @@ class GameController(val timerText: Text, val multiplierText:Text, comboText: Te
   private var timeLeft: Int = gameDuration
   private var timer: AnimationTimer = _
 
+  // Method to set the primary stage for the controller
+  def setStage(stage: PrimaryStage): Unit = {
+    this.stage = stage
+  }
 
   // Generate a random arrow key
   def generateRandomArrow(): KeyCode = {
@@ -91,8 +97,8 @@ class GameController(val timerText: Text, val multiplierText:Text, comboText: Te
       val currentTime = (now - elapsedTime) / 1e9.toInt
       timeLeft = (gameDuration.toLong - currentTime).toInt
       if (lives <= 0 || timeLeft <= 0) {
-        endGame()
         timer.stop() // Stop the AnimationTimer
+        endGame()
       }
       updateUI()
     }
@@ -102,11 +108,7 @@ class GameController(val timerText: Text, val multiplierText:Text, comboText: Te
 
   // End the game and display final score
   def endGame(): Unit = {
-    arrowDisplay.text = s"Game Over! Final Score: $score"
+    MainApp.showResult(this.score)
   }
 
-  // Method to set the primary stage for the controller
-  def setStage(stage: PrimaryStage): Unit = {
-    this.stage = stage
-  }
 }

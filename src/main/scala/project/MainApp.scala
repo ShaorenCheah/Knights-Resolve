@@ -3,7 +3,7 @@ package project
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.Scene
-import project.view.{GameController, HomepageController}
+import project.view.{ResultController, GameController, HomepageController}
 import scalafx.Includes._
 import scalafxml.core.{FXMLLoader, NoDependencyResolver}
 import javafx.{scene => jfxs}
@@ -14,6 +14,7 @@ object MainApp extends JFXApp {
   // Initialize empty controllers for views
   var homepageController: Option[HomepageController#Controller] = None
   var gameController: Option[GameController#Controller] = None
+  var resultController: Option[ResultController#Controller] = None
 
   // Method to initialize .fxml files which returns roots and controller
 
@@ -62,4 +63,16 @@ object MainApp extends JFXApp {
     gameController.foreach(controller => controller.startGame())
   }
 
+  // Display game result
+  def showResult(score: Int): Unit = {
+    val (roots3, controller) = loadFXML[ResultController#Controller]("view/Result.fxml")
+    resultController = Option(controller)
+    stage = new PrimaryStage {
+      title = "Rhythm"
+      scene = new Scene {
+        root = roots3
+        resultController.foreach(controller => controller.initialize(score))
+      }
+    }
+  }
 }
