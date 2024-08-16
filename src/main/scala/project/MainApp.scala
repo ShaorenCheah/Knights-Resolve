@@ -5,13 +5,14 @@ import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.Scene
 import scalafx.Includes._
 import scalafxml.core.{FXMLLoader, NoDependencyResolver}
-import project.view.HomepageController
+import project.view.{HomepageController, GameController}
 import javafx.{scene => jfxs}
 
 object MainApp extends JFXApp {
 
   // Initialize empty controllers for views
   var homepageController: Option[HomepageController#Controller] = None
+  var gameController: Option[GameController#Controller] = None
 
   // Method to initialize .fxml files which returns roots and controller
   private def loadFXML[A](fileName: String): (jfxs.Parent, A) = {
@@ -41,6 +42,13 @@ object MainApp extends JFXApp {
 
   // Display game after clicking start
   def showGame(): Unit = {
-
+    val (roots2, controller) = loadFXML[GameController#Controller]("/project/view/Game.fxml")
+    gameController = Option(controller)
+    stage = new PrimaryStage {
+      title = "Rhythm"
+      scene = new Scene {
+        root = roots2
+      }
+    }
   }
 }
