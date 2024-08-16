@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.*?>
-
+<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="800.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.view.GameController">
     <children>
         <fx:include source="RootLayout.fxml" />
+      <Text fx:id="scoreText" layoutX="151.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score: 0" wrappingWidth="147.9975577443838">
+         <font>
+            <Font size="40.0" />
+         </font>
+      </Text>
+      <Text fx:id="livesText" layoutX="190.0" layoutY="260.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lives: 3" wrappingWidth="70.99755859375">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Text>
+      <Text fx:id="arrowDisplay" layoutX="99.0" layoutY="419.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get Ready!!" wrappingWidth="251.99755859375">
+         <font>
+            <Font size="48.0" />
+         </font>
+      </Text>
     </children>
 </AnchorPane>

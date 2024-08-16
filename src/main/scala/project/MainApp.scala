@@ -3,10 +3,11 @@ package project
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.Scene
+import project.view.{GameController, HomepageController}
 import scalafx.Includes._
 import scalafxml.core.{FXMLLoader, NoDependencyResolver}
-import project.view.{HomepageController, GameController}
 import javafx.{scene => jfxs}
+
 
 object MainApp extends JFXApp {
 
@@ -15,11 +16,9 @@ object MainApp extends JFXApp {
   var gameController: Option[GameController#Controller] = None
 
   // Method to initialize .fxml files which returns roots and controller
+
   private def loadFXML[A](fileName: String): (jfxs.Parent, A) = {
     val resource = getClass.getResource(fileName)
-    if (resource == null) {
-      throw new RuntimeException(s"Cannot load resource: $fileName. Make sure the file exists in the correct directory.")
-    }
     val loader = new FXMLLoader(resource, NoDependencyResolver)
     loader.load()
     val root = loader.getRoot[jfxs.Parent]
@@ -28,8 +27,8 @@ object MainApp extends JFXApp {
   }
 
   // Display homepage when first launch
-  def showHomepage() = {
-    val (roots1, controller) = loadFXML[HomepageController#Controller]("/project/view/Homepage.fxml")
+  def showHomepage(): Unit = {
+    val (roots1, controller) = loadFXML[HomepageController#Controller]("view/Homepage.fxml")
     homepageController = Option(controller)
     stage = new PrimaryStage {
       title = "Rhythm"
@@ -40,7 +39,7 @@ object MainApp extends JFXApp {
   }
   showHomepage()
 
-  // Display game after clicking start
+  // Display the game scene
   def showGame(): Unit = {
     val (roots2, controller) = loadFXML[GameController#Controller]("/project/view/Game.fxml")
     gameController = Option(controller)
@@ -48,7 +47,15 @@ object MainApp extends JFXApp {
       title = "Rhythm"
       scene = new Scene {
         root = roots2
+        gameController.foreach(controller => controller.setStage(stage))
       }
     }
+    // Event handler to read user input
+    stage.scene().onKeyPressed = { event =>
+      gameController.foreach(controller => controller.onKeyPressed(event))
+    }
+    // Start the game
+    gameController.foreach(controller => controller.startGame())
   }
+
 }
