@@ -34,20 +34,24 @@ object MainApp extends JFXApp {
       title = "Rhythm"
       scene = new Scene {
         root = roots1
+        homepageController.foreach(controller => controller.initialize())
       }
     }
   }
   showHomepage()
 
   // Display the game scene
-  def showGame(): Unit = {
+  def showGame(difficulty: String): Unit = {
     val (roots2, controller) = loadFXML[GameController#Controller]("/project/view/Game.fxml")
     gameController = Option(controller)
     stage = new PrimaryStage {
       title = "Rhythm"
       scene = new Scene {
         root = roots2
-        gameController.foreach(controller => controller.setStage(stage))
+        gameController.foreach(controller =>{
+          controller.setStage(stage)
+          controller.setDifficulty(difficulty)
+        })
       }
     }
     // Event handler to read user input

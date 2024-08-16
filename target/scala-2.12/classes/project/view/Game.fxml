@@ -6,17 +6,17 @@
 <AnchorPane prefHeight="800.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.view.GameController">
     <children>
         <fx:include source="RootLayout.fxml" />
-      <Text fx:id="scoreText" layoutX="151.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score: 0" wrappingWidth="147.9975577443838">
+      <Text fx:id="scoreText" layoutX="117.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score: 0" textAlignment="CENTER" wrappingWidth="214.9975577443838" AnchorPane.bottomAnchor="574.0" AnchorPane.leftAnchor="117.0" AnchorPane.rightAnchor="118.40244225561617" AnchorPane.topAnchor="173.0">
          <font>
             <Font size="40.0" />
          </font>
       </Text>
-      <Text fx:id="livesText" layoutX="190.0" layoutY="260.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lives: 3" wrappingWidth="70.99755859375">
+      <Text fx:id="livesText" layoutX="190.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lives: 3" textAlignment="CENTER" wrappingWidth="70.99755859375" AnchorPane.bottomAnchor="518.7294921875" AnchorPane.leftAnchor="190.0" AnchorPane.rightAnchor="189.00244140625" AnchorPane.topAnchor="253.3388671875">
          <font>
             <Font size="21.0" />
          </font>
       </Text>
-      <Text fx:id="arrowDisplay" layoutX="99.0" layoutY="419.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get Ready!!" wrappingWidth="251.99755859375">
+      <Text fx:id="arrowDisplay" layoutX="99.0" layoutY="419.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get Ready!!" textAlignment="CENTER" wrappingWidth="251.99755859375" AnchorPane.bottomAnchor="368.953125" AnchorPane.leftAnchor="99.0" AnchorPane.rightAnchor="99.00244140625" AnchorPane.topAnchor="367.046875">
          <font>
             <Font size="48.0" />
          </font>
