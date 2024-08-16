@@ -1,24 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="800.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.view.GameController">
+<AnchorPane prefHeight="800.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.view.GameController">
     <children>
         <fx:include source="RootLayout.fxml" />
-      <Text fx:id="scoreText" layoutX="117.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score: 0" textAlignment="CENTER" wrappingWidth="214.9975577443838" AnchorPane.bottomAnchor="574.0" AnchorPane.leftAnchor="117.0" AnchorPane.rightAnchor="118.40244225561617" AnchorPane.topAnchor="173.0">
+      <Text fx:id="scoreText" layoutX="118.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score: 0" textAlignment="CENTER" wrappingWidth="214.9975577443838" AnchorPane.bottomAnchor="550.1640625" AnchorPane.leftAnchor="118.0" AnchorPane.rightAnchor="117.40244225561617" AnchorPane.topAnchor="196.8359375">
          <font>
             <Font size="40.0" />
          </font>
       </Text>
-      <Text fx:id="livesText" layoutX="190.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lives: 3" textAlignment="CENTER" wrappingWidth="70.99755859375" AnchorPane.bottomAnchor="518.7294921875" AnchorPane.leftAnchor="190.0" AnchorPane.rightAnchor="189.00244140625" AnchorPane.topAnchor="253.3388671875">
+      <Text fx:id="livesText" layoutX="189.0" layoutY="274.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lives: 3" textAlignment="CENTER" wrappingWidth="70.99755859375" AnchorPane.bottomAnchor="520.9326171875" AnchorPane.leftAnchor="189.0" AnchorPane.rightAnchor="190.40244140624998" AnchorPane.topAnchor="251.3388671875">
          <font>
             <Font size="21.0" />
          </font>
       </Text>
-      <Text fx:id="arrowDisplay" layoutX="99.0" layoutY="419.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get Ready!!" textAlignment="CENTER" wrappingWidth="251.99755859375" AnchorPane.bottomAnchor="368.953125" AnchorPane.leftAnchor="99.0" AnchorPane.rightAnchor="99.00244140625" AnchorPane.topAnchor="367.046875">
+      <Text fx:id="arrowDisplay" layoutX="99.0" layoutY="433.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get Ready!!" textAlignment="CENTER" wrappingWidth="251.99755859375" AnchorPane.bottomAnchor="355.15625" AnchorPane.leftAnchor="99.0" AnchorPane.rightAnchor="99.40244140624998" AnchorPane.topAnchor="381.203125">
          <font>
             <Font size="48.0" />
+         </font>
+      </Text>
+      <Text fx:id="timerText" layoutX="197.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Text fx:id="comboText" layoutX="263.0" layoutY="376.0" strokeType="OUTSIDE" strokeWidth="0.0" text="COMBO x0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="multiplierText" layoutX="180.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Multiplier: x0.0">
+         <font>
+            <Font size="14.0" />
          </font>
       </Text>
     </children>

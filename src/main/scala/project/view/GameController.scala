@@ -8,10 +8,10 @@ import scalafx.animation.AnimationTimer
 import project.modal._
 import scalafxml.core.macros.sfxml
 
-import scala.util.Random  // Import Difficulty and its case objects
+import scala.util.Random
 
 @sfxml
-class GameController(val scoreText: Text, val livesText: Text, val arrowDisplay: Text) {
+class GameController(val timerText: Text, val multiplierText:Text, comboText: Text, val scoreText: Text, val livesText: Text, val arrowDisplay: Text) {
   private var stage: PrimaryStage = _
   private var difficulty: Difficulty = Easy // Default difficulty
   private var score: Int = 0
@@ -26,6 +26,13 @@ class GameController(val scoreText: Text, val livesText: Text, val arrowDisplay:
     "Normal" -> Normal,
     "Hard" -> Hard
   )
+
+  // Timer to set game duration
+  private val gameDuration: Int = 60
+  private var elapsedTime: Long = 0L
+  private var timeLeft: Int = gameDuration
+  private var timer: AnimationTimer = _
+
 
   // Generate a random arrow key
   def generateRandomArrow(): KeyCode = {
@@ -51,6 +58,9 @@ class GameController(val scoreText: Text, val livesText: Text, val arrowDisplay:
 
   // Update UI elements
   def updateUI(): Unit = {
+    timerText.text = s"$timeLeft s"
+    multiplierText.text = s"Multipler: x$multiplier"
+    comboText.text = s"COMBO: $combo"
     scoreText.text = s"Score: $score"
     livesText.text = s"Lives: $lives"
   }
@@ -76,11 +86,17 @@ class GameController(val scoreText: Text, val livesText: Text, val arrowDisplay:
     expectedArrow = generateRandomArrow()
     arrowDisplay.text = expectedArrow.toString // Display the initial arrow
 
-    val timer = AnimationTimer { _ =>
-      if (lives <= 0) {
+    timer = AnimationTimer { now =>
+      if (elapsedTime == 0L) elapsedTime = now // Initialize elapsed time
+      val currentTime = (now - elapsedTime) / 1e9.toInt
+      timeLeft = (gameDuration.toLong - currentTime).toInt
+      if (lives <= 0 || timeLeft <= 0) {
         endGame()
+        timer.stop() // Stop the AnimationTimer
       }
+      updateUI()
     }
+
     timer.start()
   }
 
