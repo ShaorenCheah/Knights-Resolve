@@ -1,18 +1,18 @@
 package project.view
 
 import project.MainApp
+import project.modal._
 import scalafx.application.JFXApp.PrimaryStage
-import scalafx.scene.Scene
 import scalafx.scene.text.Text
 import scalafx.scene.input.{KeyCode, KeyEvent}
 import scalafx.animation.AnimationTimer
-import project.modal._
+import scalafx.geometry.Pos
+import scalafx.scene.control.Label
+import scalafx.scene.layout.FlowPane
 import scalafxml.core.macros.sfxml
 
-import scala.util.Random
-
 @sfxml
-class GameController(val timerText: Text, val multiplierText:Text, comboText: Text, val scoreText: Text, val livesText: Text, val arrowDisplay: Text) {
+class GameController(val timerText: Text, val multiplierText: Text, val comboText: Text, val scoreText: Text, val livesText: Text, val arrowPane: FlowPane) {
 
   private var stage: PrimaryStage = _
   private var difficulty: Difficulty = Easy // Default difficulty
@@ -20,8 +20,7 @@ class GameController(val timerText: Text, val multiplierText:Text, comboText: Te
   private var multiplier: Double = difficulty.baseMultiplier
   private var combo: Int = 0
   private var lives: Int = difficulty.lives
-  private val arrowKeys = List(KeyCode.Left, KeyCode.Right, KeyCode.Up, KeyCode.Down)
-  private var expectedArrow: KeyCode = generateRandomArrow()
+  private def arrowKeys: Set[KeyCode] = Set(KeyCode.Left, KeyCode.Up, KeyCode.Right, KeyCode.Down)
 
   private val difficultyMap: Map[String, Difficulty] = Map(
     "Easy" -> Easy,
@@ -35,40 +34,20 @@ class GameController(val timerText: Text, val multiplierText:Text, comboText: Te
   private var timeLeft: Int = gameDuration
   private var timer: AnimationTimer = _
 
+  // Create 5 fixed slots for arrows
+  private val arrowLabels: Seq[Label] = Seq.fill(5)(new Label(""))
+
+  // Add all arrow labels to the FlowPane
+  arrowLabels.foreach(label => {
+    label.setStyle("-fx-font-size: 24pt;") // Default font size
+    arrowPane.children.add(label)
+  })
+  arrowPane.alignment = Pos.Center
+  arrowPane.hgap = 10
+
   // Method to set the primary stage for the controller
   def setStage(stage: PrimaryStage): Unit = {
     this.stage = stage
-  }
-
-  // Generate a random arrow key
-  def generateRandomArrow(): KeyCode = {
-    arrowKeys(Random.nextInt(arrowKeys.length))
-  }
-
-  // Handle user input
-  def onKeyPressed(event: KeyEvent): Unit = {
-    val keyCode = KeyCode(event.code) // Convert to ScalaFX KeyCode
-    if (keyCode == expectedArrow) {
-      combo += 1
-      multiplier = difficulty.baseMultiplier + (Math.ceil(combo / 10.0) * difficulty.comboIncrement)
-      score += (10 * multiplier).toInt
-      expectedArrow = generateRandomArrow() // Regenerate the arrow
-      arrowDisplay.text = expectedArrow.toString
-    } else if (arrowKeys.contains(keyCode) && (event.code != expectedArrow)) {
-      combo = 0
-      multiplier = difficulty.baseMultiplier
-      lives -= 1
-    }
-    updateUI()
-  }
-
-  // Update UI elements
-  def updateUI(): Unit = {
-    timerText.text = s"$timeLeft s"
-    multiplierText.text = s"Multipler: x$multiplier"
-    comboText.text = s"COMBO: $combo"
-    scoreText.text = s"Score: $score"
-    livesText.text = s"Lives: $lives"
   }
 
   // Set the difficulty and update game parameters
@@ -87,10 +66,92 @@ class GameController(val timerText: Text, val multiplierText:Text, comboText: Te
     }
   }
 
+  // Initialize DirectionHandler
+  private val directionHandler = new DirectionHandler()
+
+  // Initialize the arrow sequence
+  private def generateInitialArrows(): Unit = {
+    val initialArrows = List.fill(3)(directionHandler.generateRandomArrow()) ++ List.fill(2)(KeyCode.Space)
+    for (i <- initialArrows.indices) {
+      arrowLabels(i).text = directionHandler.keyCodeToSymbol(initialArrows(i))
+      // Reset font size for all arrows initially
+      arrowLabels(i).setStyle("-fx-font-size: 24pt;")
+    }
+    // Set the expected arrow as the middle arrow
+    updateExpectedArrow(initialArrows(2)) // Middle one is the expected one
+  }
+
+  // Update the arrow sequence
+  def updateArrows(): Unit = {
+    val newArrow = directionHandler.generateRandomArrow()
+    // Shift arrows to the right, add new arrow to the front
+    for (i <- (arrowLabels.length - 1) to 1 by -1) {
+      arrowLabels(i).text = arrowLabels(i - 1).text.value
+    }
+    arrowLabels(0).text = directionHandler.keyCodeToSymbol(newArrow)
+
+    // Update the expected arrow
+    updateExpectedArrow(arrowLabels(2).text.value match {
+      case "←" => KeyCode.Left
+      case "↑" => KeyCode.Up
+      case "→" => KeyCode.Right
+      case "↓" => KeyCode.Down
+      case _ => KeyCode.Space
+    })
+  }
+
+  // Assuming `expectedArrow` and `arrowKeys` are defined somewhere
+  private def expectedArrow: KeyCode = {
+    arrowLabels(2).text.value match {
+      case "←" => KeyCode.Left
+      case "↑" => KeyCode.Up
+      case "→" => KeyCode.Right
+      case "↓" => KeyCode.Down
+      case _ => KeyCode.Space
+    }
+  }
+
+  // Set the expected arrow and enlarge it
+  private def updateExpectedArrow(newExpectedArrow: KeyCode): Unit = {
+    for (i <- arrowLabels.indices) {
+      val labelText = arrowLabels(i).text.value
+      // Only enlarge the middle arrow
+      if (i == 2 && directionHandler.keyCodeToSymbol(newExpectedArrow) == labelText) {
+        arrowLabels(i).setStyle("-fx-font-size: 48pt;") // Enlarge the expected arrow
+      } else {
+        arrowLabels(i).setStyle("-fx-font-size: 18pt;") // Reset font size for non-expected arrows
+      }
+    }
+  }
+
+  // Handle user input
+  def onKeyPressed(event: KeyEvent): Unit = {
+    if (event.code == expectedArrow) {
+      combo += 1
+      multiplier = difficulty.baseMultiplier + (Math.ceil(combo / 10.0) * difficulty.comboIncrement)
+      score += (10 * multiplier).toInt
+      updateArrows()
+    } else if (arrowKeys.contains(event.code) && event.code != expectedArrow) {
+      combo = 0
+      multiplier = difficulty.baseMultiplier
+      lives -= 1
+    }
+    updateUI()
+  }
+
+  // Update UI elements
+  private def updateUI(): Unit = {
+    timerText.text = s"$timeLeft s"
+    multiplierText.text = f"Multiplier: x$multiplier%.1f"
+    comboText.text = s"COMBO: $combo"
+    scoreText.text = s"Score: $score"
+    livesText.text = s"Lives: $lives"
+  }
+
+
   // Start the game loop
   def startGame(): Unit = {
-    expectedArrow = generateRandomArrow()
-    arrowDisplay.text = expectedArrow.toString // Display the initial arrow
+    generateInitialArrows() // Display the initial sequence of arrows
 
     timer = AnimationTimer { now =>
       if (elapsedTime == 0L) elapsedTime = now // Initialize elapsed time
@@ -107,7 +168,7 @@ class GameController(val timerText: Text, val multiplierText:Text, comboText: Te
   }
 
   // End the game and display final score
-  def endGame(): Unit = {
+  private def endGame(): Unit = {
     MainApp.showResult(this.score)
   }
 

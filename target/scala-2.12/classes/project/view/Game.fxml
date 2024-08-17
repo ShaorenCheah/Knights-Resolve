@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="800.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.view.GameController">
+<AnchorPane prefHeight="800.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.view.GameController">
     <children>
         <fx:include source="RootLayout.fxml" />
       <Text fx:id="scoreText" layoutX="118.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score: 0" textAlignment="CENTER" wrappingWidth="214.9975577443838" AnchorPane.bottomAnchor="550.1640625" AnchorPane.leftAnchor="118.0" AnchorPane.rightAnchor="117.40244225561617" AnchorPane.topAnchor="196.8359375">
@@ -17,17 +16,12 @@
             <Font size="21.0" />
          </font>
       </Text>
-      <Text fx:id="arrowDisplay" layoutX="99.0" layoutY="433.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get Ready!!" textAlignment="CENTER" wrappingWidth="251.99755859375" AnchorPane.bottomAnchor="355.15625" AnchorPane.leftAnchor="99.0" AnchorPane.rightAnchor="99.40244140624998" AnchorPane.topAnchor="381.203125">
-         <font>
-            <Font size="48.0" />
-         </font>
-      </Text>
       <Text fx:id="timerText" layoutX="197.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00">
          <font>
             <Font size="24.0" />
          </font>
       </Text>
-      <Text fx:id="comboText" layoutX="263.0" layoutY="376.0" strokeType="OUTSIDE" strokeWidth="0.0" text="COMBO x0">
+      <Text fx:id="comboText" layoutX="260.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" text="COMBO x0">
          <font>
             <Font size="18.0" />
          </font>
@@ -37,5 +31,6 @@
             <Font size="14.0" />
          </font>
       </Text>
+      <FlowPane fx:id="arrowPane" layoutY="370.0" prefHeight="87.0" prefWidth="450.0" AnchorPane.bottomAnchor="343.203125" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.39999999999997726" AnchorPane.topAnchor="370.0" />
     </children>
 </AnchorPane>
