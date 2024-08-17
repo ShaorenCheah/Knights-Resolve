@@ -3,13 +3,15 @@ package project.view
 import project.MainApp
 import project.modal._
 import scalafx.application.JFXApp.PrimaryStage
-import scalafx.scene.text.Text
+import scalafx.scene.image.{Image, ImageView}
 import scalafx.scene.input.{KeyCode, KeyEvent}
 import scalafx.animation.AnimationTimer
-import scalafx.geometry.Pos
-import scalafx.scene.control.Label
+import scalafx.geometry.{Insets, Pos}
 import scalafx.scene.layout.FlowPane
+import scalafx.scene.text.Text
 import scalafxml.core.macros.sfxml
+
+import scala.collection.mutable.ArrayBuffer
 
 @sfxml
 class GameController(val timerText: Text, val multiplierText: Text, val comboText: Text, val scoreText: Text, val livesText: Text, val arrowPane: FlowPane) {
@@ -34,13 +36,15 @@ class GameController(val timerText: Text, val multiplierText: Text, val comboTex
   private var timeLeft: Int = gameDuration
   private var timer: AnimationTimer = _
 
-  // Create 5 fixed slots for arrows
-  private val arrowLabels: Seq[Label] = Seq.fill(5)(new Label(""))
+  // Create 5 fixed slots for arrows using ImageView
+  private val arrowImages: Seq[ImageView] = Seq.fill(5)(new ImageView())
+  private val arrowKeysList: ArrayBuffer[KeyCode] = ArrayBuffer.fill(5)(KeyCode.Space) // Initialize with default KeyCode
 
-  // Add all arrow labels to the FlowPane
-  arrowLabels.foreach(label => {
-    label.setStyle("-fx-font-size: 24pt;") // Default font size
-    arrowPane.children.add(label)
+  // Add all ImageView components to the FlowPane
+  arrowImages.foreach(imageView => {
+    imageView.setFitHeight(50) // Default image height
+    imageView.setFitWidth(50)  // Default image width
+    arrowPane.children.add(imageView)
   })
   arrowPane.alignment = Pos.Center
   arrowPane.hgap = 10
@@ -73,53 +77,53 @@ class GameController(val timerText: Text, val multiplierText: Text, val comboTex
   private def generateInitialArrows(): Unit = {
     val initialArrows = List.fill(3)(directionHandler.generateRandomArrow()) ++ List.fill(2)(KeyCode.Space)
     for (i <- initialArrows.indices) {
-      arrowLabels(i).text = directionHandler.keyCodeToSymbol(initialArrows(i))
-      // Reset font size for all arrows initially
-      arrowLabels(i).setStyle("-fx-font-size: 24pt;")
+      arrowKeysList(i) = initialArrows(i) // Update the KeyCode list
+      arrowImages(i).image = directionHandler.keyCodeToImage(initialArrows(i)) // Set the image
+      // Reset image size for all arrows initially
+      arrowImages(i).setFitHeight(50)
+      arrowImages(i).setFitWidth(50)
     }
     // Set the expected arrow as the middle arrow
-    updateExpectedArrow(initialArrows(2)) // Middle one is the expected one
+    updateExpectedArrow() // Middle one is the expected one
   }
 
   // Update the arrow sequence
   def updateArrows(): Unit = {
+    // Generate a new arrow
     val newArrow = directionHandler.generateRandomArrow()
-    // Shift arrows to the right, add new arrow to the front
-    for (i <- (arrowLabels.length - 1) to 1 by -1) {
-      arrowLabels(i).text = arrowLabels(i - 1).text.value
+
+    // Shift arrows to the right, update the KeyCode list
+    for (i <- (arrowImages.length - 1) to 1 by -1) {
+      arrowKeysList(i) = arrowKeysList(i - 1) // Update KeyCode list
     }
-    arrowLabels(0).text = directionHandler.keyCodeToSymbol(newArrow)
+    arrowKeysList(0) = newArrow // Add new arrow to the front of KeyCode list
+
+    // Update images based on the updated KeyCode list
+    arrowImages.zip(arrowKeysList).foreach { case (imageView, keyCode) =>
+      imageView.image = directionHandler.keyCodeToImage(keyCode) // Set image based on KeyCode
+      imageView.setFitHeight(50) // Set default size for all arrows
+      imageView.setFitWidth(50)
+      imageView.margin = Insets(10)
+    }
 
     // Update the expected arrow
-    updateExpectedArrow(arrowLabels(2).text.value match {
-      case "←" => KeyCode.Left
-      case "↑" => KeyCode.Up
-      case "→" => KeyCode.Right
-      case "↓" => KeyCode.Down
-      case _ => KeyCode.Space
-    })
+    updateExpectedArrow()
   }
 
-  // Assuming `expectedArrow` and `arrowKeys` are defined somewhere
-  private def expectedArrow: KeyCode = {
-    arrowLabels(2).text.value match {
-      case "←" => KeyCode.Left
-      case "↑" => KeyCode.Up
-      case "→" => KeyCode.Right
-      case "↓" => KeyCode.Down
-      case _ => KeyCode.Space
-    }
-  }
+
+  // Retrieve the expected arrow from the list
+  private def expectedArrow: KeyCode = arrowKeysList(2)
 
   // Set the expected arrow and enlarge it
-  private def updateExpectedArrow(newExpectedArrow: KeyCode): Unit = {
-    for (i <- arrowLabels.indices) {
-      val labelText = arrowLabels(i).text.value
+  private def updateExpectedArrow(): Unit = {
+    for (i <- arrowImages.indices) {
       // Only enlarge the middle arrow
-      if (i == 2 && directionHandler.keyCodeToSymbol(newExpectedArrow) == labelText) {
-        arrowLabels(i).setStyle("-fx-font-size: 48pt;") // Enlarge the expected arrow
+      if (i == 2 && expectedArrow == arrowKeysList(2)) {
+        arrowImages(i).setFitHeight(100) // Enlarge the expected arrow
+        arrowImages(i).setFitWidth(100)
       } else {
-        arrowLabels(i).setStyle("-fx-font-size: 18pt;") // Reset font size for non-expected arrows
+        arrowImages(i).setFitHeight(50) // Reset image size for non-expected arrows
+        arrowImages(i).setFitWidth(50)
       }
     }
   }
@@ -148,7 +152,6 @@ class GameController(val timerText: Text, val multiplierText: Text, val comboTex
     livesText.text = s"Lives: $lives"
   }
 
-
   // Start the game loop
   def startGame(): Unit = {
     generateInitialArrows() // Display the initial sequence of arrows
@@ -171,5 +174,4 @@ class GameController(val timerText: Text, val multiplierText: Text, val comboTex
   private def endGame(): Unit = {
     MainApp.showResult(this.score)
   }
-
 }
