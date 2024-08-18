@@ -18,7 +18,7 @@ import scala.collection.mutable.ArrayBuffer
 
 
 @sfxml
-class GameController(val timerText: Text, val multiplierText: Text, val comboText: Text, val scoreText: Text, val livesText: Text, val arrowPane: FlowPane, val knightView: ImageView, val banditView: ImageView, val rectangle: Rectangle, val circle: Circle) {
+class GameController(val timerText: Text, val multiplierText: Text, val comboText: Text, val scoreText: Text, val arrowPane: FlowPane, val livesPane: FlowPane, val knightView: ImageView, val banditView: ImageView, val rectangle: Rectangle, val circle: Circle) {
 
   private var stage: PrimaryStage = _
   private var difficulty: Difficulty = Easy // Default difficulty
@@ -33,6 +33,8 @@ class GameController(val timerText: Text, val multiplierText: Text, val comboTex
     "Normal" -> Normal,
     "Hard" -> Hard
   )
+
+  private val lifeImage = new Image(getClass.getResource("/project/images/heart_full.png").toExternalForm)
 
   // Timer to set game duration
   private val gameDuration: Int = 60
@@ -84,10 +86,27 @@ class GameController(val timerText: Text, val multiplierText: Text, val comboTex
         this.lives = difficulty.lives
         this.multiplier = difficulty.baseMultiplier
         this.combo = 0
+        updateLivesPane()
         updateUI()
       case None =>
         throw new IllegalArgumentException(s"Invalid difficulty level: $difficultyName")
     }
+  }
+
+  def updateLivesPane(): Unit = {
+    // Clear existing lives if any
+    livesPane.getChildren.clear()
+
+    // Add new lives based on the current difficulty
+    for (_ <- 1 to lives) {
+      val lifeImageView = new ImageView(lifeImage) // Replace with actual image path
+      lifeImageView.setFitHeight(35)
+      lifeImageView.setFitWidth(35)
+      livesPane.getChildren.add(lifeImageView)
+      livesPane.hgap = 20
+      livesPane.setAlignment(Pos.Center)
+    }
+
   }
 
   // Initialize DirectionHandler
@@ -163,6 +182,7 @@ class GameController(val timerText: Text, val multiplierText: Text, val comboTex
       combo = 0
       multiplier = difficulty.baseMultiplier
       lives -= 1
+      updateLivesPane()
       banditAtack()
     }
     updateUI()
@@ -257,7 +277,6 @@ class GameController(val timerText: Text, val multiplierText: Text, val comboTex
     multiplierText.text = f"Multiplier: x$multiplier%.1f"
     comboText.text = s"COMBO: $combo"
     scoreText.text = s"Score: $score"
-    livesText.text = s"Lives: $lives"
   }
 
   // Start the game loop
