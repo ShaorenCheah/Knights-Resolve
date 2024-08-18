@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Rhythm.iml" filepath="$PROJECT_DIR$/.idea/modules/Rhythm.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Rhythm.Rhythm-build.iml" filepath="$PROJECT_DIR$/.idea/modules/Rhythm.Rhythm-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Knight's Resolve.iml" filepath="$PROJECT_DIR$/.idea/modules/Knight's Resolve.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Knight's Resolve.Knight's Resolve-build.iml" filepath="$PROJECT_DIR$/.idea/modules/Knight's Resolve.Knight's Resolve-build.iml" />
     </modules>
   </component>
 </project>

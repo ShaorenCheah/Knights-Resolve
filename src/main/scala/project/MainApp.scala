@@ -47,10 +47,11 @@ object MainApp extends JFXApp {
     val (roots2, controller) = loadFXML[DifficultyController#Controller]("view/Difficulty.fxml")
     difficultyController = Option(controller)
     stage = new PrimaryStage {
-      title = "Rhythm"
+      title = "Knight's Resolve"
       resizable = false
       scene = new Scene {
         root = roots2
+        difficultyController.foreach(controller => controller.initialize())
       }
     }
   }
@@ -60,7 +61,8 @@ object MainApp extends JFXApp {
     val (roots3, controller) = loadFXML[GameController#Controller]("/project/view/Game.fxml")
     gameController = Option(controller)
     stage = new PrimaryStage {
-      title = "Rhythm"
+      title = "Knight's Resolve"
+      resizable = false
       scene = new Scene {
         root = roots3
         gameController.foreach(controller =>{
@@ -79,12 +81,13 @@ object MainApp extends JFXApp {
 
   // Display game result
   def showResult(score: Int): Unit = {
-    val (roots3, controller) = loadFXML[ResultController#Controller]("view/Result.fxml")
+    val (roots4, controller) = loadFXML[ResultController#Controller]("view/Result.fxml")
     resultController = Option(controller)
     stage = new PrimaryStage {
-      title = "Rhythm"
+      title = "Knight's Resolve"
+      resizable = false
       scene = new Scene {
-        root = roots3
+        root = roots4
         resultController.foreach(controller => controller.initialize(score))
       }
     }

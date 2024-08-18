@@ -2,24 +2,32 @@
 
 .font {
     -fx-font-family: 'Press Start 2P', sans-serif;
+    -fx-text-fill: white; /* Applies to general text */
 }
 
-.battle-background{
+.battle-background {
     -fx-background-image: url('/project/images/battle_bg.png');
     -fx-background-size: cover;
     -fx-background-position: center center;
 }
 
-.castle-background{
+.castle-background {
     -fx-background-image: url('/project/images/castle_bg.png');
     -fx-background-size: cover;
     -fx-background-position: center center;
 }
 
 .black-container {
-    -fx-background-color: rgba(0,0,0,0.6);
+    -fx-background-color: rgba(0, 0, 0, 0.6);
     -fx-border-color: none;
     -fx-border-radius: 0px;
 }
 
+.choice-box {
+    -fx-text-fill: white;
+}
 
+.choice-box .menu-item {
+    -fx-text-fill: white;
+    -fx-alignment: center;
+}
