@@ -18,9 +18,9 @@
             <Font size="14.0" />
          </font>
       </Text>
-      <Text fx:id="scoreText" fill="WHITE" layoutX="108.0" layoutY="429.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="font" text="00" textAlignment="CENTER" wrappingWidth="237.9140625" AnchorPane.bottomAnchor="371.79999999999995" AnchorPane.leftAnchor="108.0" AnchorPane.rightAnchor="104.0859375" AnchorPane.topAnchor="357.0">
+      <Text fx:id="scoreText" fill="WHITE" layoutX="108.0" layoutY="417.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="font" text="00" textAlignment="CENTER" wrappingWidth="237.9140625" AnchorPane.bottomAnchor="383.79999999999995" AnchorPane.leftAnchor="108.0" AnchorPane.rightAnchor="104.0859375" AnchorPane.topAnchor="369.0">
          <font>
-            <Font size="72.0" />
+            <Font size="48.0" />
          </font>
       </Text>
       <Button layoutX="86.0" layoutY="565.0" mnemonicParsing="false" onAction="#goBack" prefHeight="40.0" prefWidth="283.0" text="BACK TO HOME" AnchorPane.bottomAnchor="196.0" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="81.0" AnchorPane.topAnchor="565.0">
@@ -36,7 +36,7 @@
          <font>
             <Font size="36.0" />
          </font></Text>
-      <Button layoutX="86.0" layoutY="508.0" mnemonicParsing="false" onAction="#retry" prefHeight="40.0" prefWidth="283.0" text="RETRY">
+      <Button layoutX="86.0" layoutY="511.0" mnemonicParsing="false" onAction="#goBack" prefHeight="40.0" prefWidth="283.0" text="RETRY">
          <font>
             <Font size="18.0" />
          </font>

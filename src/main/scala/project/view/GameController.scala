@@ -106,7 +106,6 @@ class GameController(val timerText: Text, val multiplierText: Text, val comboTex
       livesPane.hgap = 20
       livesPane.setAlignment(Pos.Center)
     }
-
   }
 
   // Initialize DirectionHandler

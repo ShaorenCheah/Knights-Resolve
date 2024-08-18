@@ -31,3 +31,16 @@
     -fx-text-fill: white;
     -fx-alignment: center;
 }
+
+.button {
+    -fx-border-radius: 0px;
+}
+
+.button {
+    -fx-border-radius: 0px;
+}
+
+.button:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}

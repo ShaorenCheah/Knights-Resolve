@@ -11,7 +11,7 @@
    <children>
        <fx:include source="RootLayout.fxml" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000099" height="645.0" layoutX="47.0" layoutY="78.0" stroke="TRANSPARENT" strokeType="INSIDE" width="357.0" />
-      <Button layoutX="168.0" layoutY="669.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="114.0" text="BACK">
+      <Button layoutX="133.0" layoutY="667.0" mnemonicParsing="false" onAction="#back" prefHeight="38.0" prefWidth="182.0" text="BACK">
          <styleClass>
             <String fx:value="black-container" />
             <String fx:value="font" />

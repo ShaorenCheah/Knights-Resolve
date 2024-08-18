@@ -1,7 +1,5 @@
 package project.modal
 
-import project.view.GameController
-
 // Difficulty.scala
 trait Difficulty {
   def lives: Int
