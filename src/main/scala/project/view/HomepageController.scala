@@ -1,7 +1,7 @@
 package project.view
 
 import project.MainApp
-import scalafx.scene.control.{Button, ChoiceBox}
+import scalafx.scene.control.{ChoiceBox}
 import scalafxml.core.macros.sfxml
 
 @sfxml
@@ -12,8 +12,7 @@ class HomepageController(val difficultyChoice: ChoiceBox[String]) {
     difficultyChoice.selectionModel().select("Easy") // Set default value if needed
   }
 
-  def startGame(): Unit = {
-    val difficulty = difficultyChoice.selectionModel().getSelectedItem
-    MainApp.showGame(difficulty)
+  def selectDifficulty(): Unit = {
+    MainApp.showDifficulty()
   }
 }

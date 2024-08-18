@@ -8,8 +8,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="800.0" prefWidth="450.0" styleClass="background" stylesheets="@styles/Game.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.view.GameController">
+<AnchorPane prefHeight="800.0" prefWidth="450.0" styleClass="battle-background" stylesheets="@Game.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.view.GameController">
     <children>
+        <fx:include source="RootLayout.fxml" />
         <Text fx:id="scoreText" fill="WHITE" layoutX="2.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="font" text="Score: 0" textAlignment="CENTER" wrappingWidth="449.9999977409461" AnchorPane.bottomAnchor="741.203125" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="3.2000022590538606" AnchorPane.topAnchor="27.0">
             <font>
                 <Font size="32.0" />

@@ -3,7 +3,7 @@ package project
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.Scene
-import project.view.{ResultController, GameController, HomepageController}
+import project.view.{ResultController, GameController, DifficultyController, HomepageController}
 import scalafx.Includes._
 import scalafxml.core.{FXMLLoader, NoDependencyResolver}
 import javafx.{scene => jfxs}
@@ -13,6 +13,7 @@ object MainApp extends JFXApp {
 
   // Initialize empty controllers for views
   var homepageController: Option[HomepageController#Controller] = None
+  var difficultyController: Option[DifficultyController#Controller] = None
   var gameController: Option[GameController#Controller] = None
   var resultController: Option[ResultController#Controller] = None
 
@@ -32,23 +33,36 @@ object MainApp extends JFXApp {
     val (roots1, controller) = loadFXML[HomepageController#Controller]("view/Homepage.fxml")
     homepageController = Option(controller)
     stage = new PrimaryStage {
-      title = "Rhythm"
+      title = "Knight's Resolve"
+      resizable = false
       scene = new Scene {
         root = roots1
-        homepageController.foreach(controller => controller.initialize())
       }
     }
   }
   showHomepage()
 
+  // Display difficulty selection
+  def showDifficulty(): Unit = {
+    val (roots2, controller) = loadFXML[DifficultyController#Controller]("view/Difficulty.fxml")
+    difficultyController = Option(controller)
+    stage = new PrimaryStage {
+      title = "Rhythm"
+      resizable = false
+      scene = new Scene {
+        root = roots2
+      }
+    }
+  }
+
   // Display the game scene
   def showGame(difficulty: String): Unit = {
-    val (roots2, controller) = loadFXML[GameController#Controller]("/project/view/Game.fxml")
+    val (roots3, controller) = loadFXML[GameController#Controller]("/project/view/Game.fxml")
     gameController = Option(controller)
     stage = new PrimaryStage {
       title = "Rhythm"
       scene = new Scene {
-        root = roots2
+        root = roots3
         gameController.foreach(controller =>{
           controller.setStage(stage)
           controller.setDifficulty(difficulty)

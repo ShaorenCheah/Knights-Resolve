@@ -4,13 +4,22 @@
     -fx-font-family: 'Press Start 2P', sans-serif;
 }
 
-.background {
+.battle-background{
     -fx-background-image: url('/project/images/battle_bg.png');
     -fx-background-size: cover;
     -fx-background-position: center center;
 }
 
-.container {
+.castle-background{
+    -fx-background-image: url('/project/images/castle_bg.png');
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
+
+.black-container {
     -fx-background-color: rgba(0,0,0,0.6);
     -fx-border-color: none;
+    -fx-border-radius: 0px;
 }
+
+
