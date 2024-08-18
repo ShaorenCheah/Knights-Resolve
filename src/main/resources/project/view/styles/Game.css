@@ -9,3 +9,8 @@
     -fx-background-size: cover;
     -fx-background-position: center center;
 }
+
+.container {
+    -fx-background-color: rgba(0,0,0,0.6);
+    -fx-border-color: none;
+}

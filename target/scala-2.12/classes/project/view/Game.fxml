@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="800.0" prefWidth="450.0" styleClass="background" stylesheets="@styles/Game.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.view.GameController">
     <children>
-        <Text fx:id="scoreText" fill="WHITE" layoutX="1.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="font" text="Score: 0" textAlignment="CENTER" wrappingWidth="449.9999977409461" AnchorPane.bottomAnchor="754.203125" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.000002259053872" AnchorPane.topAnchor="14.0">
+        <Text fx:id="scoreText" fill="WHITE" layoutX="1.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="font" text="Score: 0" textAlignment="CENTER" wrappingWidth="449.9999977409461" AnchorPane.bottomAnchor="745.203125" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="4.200002259053861" AnchorPane.topAnchor="23.0">
             <font>
                 <Font size="32.0" />
             </font>
@@ -20,16 +21,18 @@
                 <Font size="28.0" />
             </font>
         </Text>
-        <Text fx:id="comboText" fill="WHITE" layoutX="291.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="font" text="COMBO x0" wrappingWidth="147.0" AnchorPane.bottomAnchor="437.203125" AnchorPane.leftAnchor="291.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="351.0">
-            <font>
-                <Font size="12.0" />
-            </font>
-        </Text>
-        <Text fx:id="multiplierText" fill="WHITE" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="font" text="Multiplier: x0.0" textAlignment="CENTER" wrappingWidth="450.0000009536743" AnchorPane.bottomAnchor="730.203125" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.9999990463256836" AnchorPane.topAnchor="60.0">
+        <Text fx:id="multiplierText" fill="WHITE" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="font" text="Multiplier: x0.0" textAlignment="CENTER" wrappingWidth="450.0000009536743" AnchorPane.bottomAnchor="721.203125" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="5.199999046325672" AnchorPane.topAnchor="69.0">
             <font>
                 <Font size="10.0" />
             </font>
         </Text>
-        <FlowPane fx:id="arrowPane" layoutY="357.0" prefHeight="87.0" prefWidth="450.0" AnchorPane.bottomAnchor="356.203125" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.39999999999997726" AnchorPane.topAnchor="357.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000099" height="87.0" layoutY="372.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="container" width="455.0" />
+      <Circle fill="#ffffffa6" layoutX="228.0" layoutY="415.0" radius="61.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="container" />
+        <FlowPane fx:id="arrowPane" layoutY="372.0" prefHeight="87.0" prefWidth="455.0" AnchorPane.bottomAnchor="341.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="372.0" />
+        <Text fx:id="comboText" fill="WHITE" layoutX="288.0" layoutY="390.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="font" text="COMBO x0" textAlignment="RIGHT" wrappingWidth="162.0" AnchorPane.bottomAnchor="410.0" AnchorPane.leftAnchor="288.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="378.0">
+            <font>
+                <Font size="12.0" />
+            </font>
+        </Text>
     </children>
 </AnchorPane>

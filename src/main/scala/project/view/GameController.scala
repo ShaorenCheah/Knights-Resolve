@@ -45,9 +45,9 @@ class GameController(val timerText: Text, val multiplierText: Text, val comboTex
     imageView.setFitHeight(50) // Default image height
     imageView.setFitWidth(50)  // Default image width
     arrowPane.children.add(imageView)
+    arrowPane.hgap = 15
   })
   arrowPane.alignment = Pos.Center
-  arrowPane.hgap = 10
 
   // Method to set the primary stage for the controller
   def setStage(stage: PrimaryStage): Unit = {
@@ -105,6 +105,7 @@ class GameController(val timerText: Text, val multiplierText: Text, val comboTex
       imageView.setFitWidth(50)
       imageView.margin = Insets(10)
     }
+    arrowPane.hgap = 10
 
     // Update the expected arrow
     updateExpectedArrow()
