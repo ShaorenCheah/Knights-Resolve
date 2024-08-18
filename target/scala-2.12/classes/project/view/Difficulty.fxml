@@ -17,7 +17,7 @@
             <Font size="16.0" />
          </font>
       </Text>
-      <ChoiceBox fx:id="difficultyChoice" layoutX="142.0" layoutY="295.0" onMouseExited="#updateDisplay" prefHeight="45.0" prefWidth="166.0">
+      <ChoiceBox fx:id="difficultyChoice" layoutX="142.0" layoutY="295.0" onMouseClicked="#updateDisplay" onMouseEntered="#updateDisplay" onMouseExited="#updateDisplay" onMousePressed="#updateDisplay" onMouseReleased="#updateDisplay" prefHeight="45.0" prefWidth="166.0">
          <styleClass>
             <String fx:value="font" />
             <String fx:value="menu-item" />
