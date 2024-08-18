@@ -11,6 +11,10 @@ class ResultController(val scoreText: Text, val backButton: Button) {
     scoreText.text = s"$score"
   }
 
+  def retry(): Unit = {
+    MainApp.showDifficulty()
+  }
+
   def goBack(){
     MainApp.showHomepage()
   }

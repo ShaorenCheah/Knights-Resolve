@@ -1,32 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="800.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.view.ResultController">
+<AnchorPane maxWidth="450.0" minWidth="450.0" prefHeight="800.0" prefWidth="450.0" styleClass="battle-background" stylesheets="@Game.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.view.ResultController">
 
     <children>
         <fx:include source="RootLayout.fxml" />
-      <Text layoutX="106.0" layoutY="273.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game Over" AnchorPane.bottomAnchor="514.953125" AnchorPane.leftAnchor="105.9140625" AnchorPane.rightAnchor="106.0859375" AnchorPane.topAnchor="221.203125">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000099" height="480.0" layoutX="48.0" layoutY="153.0" stroke="TRANSPARENT" strokeType="INSIDE" width="357.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000099" height="200.0" layoutX="86.0" layoutY="277.0" stroke="TRANSPARENT" strokeType="INSIDE" width="283.0" />
+      <Text fill="WHITE" layoutX="150.0" layoutY="331.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="font" text="Your Score:" AnchorPane.bottomAnchor="469.79999999999995" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="146.0" AnchorPane.topAnchor="317.0">
          <font>
-            <Font size="48.0" />
-         </font></Text>
-      <Text layoutX="165.0" layoutY="333.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Score:" AnchorPane.bottomAnchor="458.0" AnchorPane.leftAnchor="164.82421875" AnchorPane.rightAnchor="165.17578125" AnchorPane.topAnchor="307.0">
-         <font>
-            <Font size="24.0" />
+            <Font size="14.0" />
          </font>
       </Text>
-      <Text fx:id="scoreText" layoutX="106.0" layoutY="430.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00" textAlignment="CENTER" wrappingWidth="237.9140625" AnchorPane.bottomAnchor="352.72968749999995" AnchorPane.leftAnchor="106.0" AnchorPane.rightAnchor="109.0" AnchorPane.topAnchor="352.3046875">
+      <Text fx:id="scoreText" fill="WHITE" layoutX="108.0" layoutY="429.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="font" text="00" textAlignment="CENTER" wrappingWidth="237.9140625" AnchorPane.bottomAnchor="371.79999999999995" AnchorPane.leftAnchor="108.0" AnchorPane.rightAnchor="104.0859375" AnchorPane.topAnchor="357.0">
          <font>
             <Font size="72.0" />
          </font>
       </Text>
-      <Button layoutX="170.0" layoutY="487.0" mnemonicParsing="false" onAction="#goBack" prefHeight="31.0" prefWidth="111.0" text="Back" AnchorPane.bottomAnchor="274.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="169.0" AnchorPane.topAnchor="487.0">
+      <Button layoutX="86.0" layoutY="565.0" mnemonicParsing="false" onAction="#goBack" prefHeight="40.0" prefWidth="283.0" text="BACK TO HOME" AnchorPane.bottomAnchor="196.0" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="81.0" AnchorPane.topAnchor="565.0">
          <font>
             <Font size="18.0" />
          </font>
+         <styleClass>
+            <String fx:value="black-container" />
+            <String fx:value="font" />
+         </styleClass>
+      </Button>
+      <Text fill="WHITE" layoutX="154.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="font" text="GAME OVER" wrappingWidth="145.0">
+         <font>
+            <Font size="36.0" />
+         </font></Text>
+      <Button layoutX="86.0" layoutY="508.0" mnemonicParsing="false" onAction="#retry" prefHeight="40.0" prefWidth="283.0" text="RETRY">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <styleClass>
+            <String fx:value="black-container" />
+            <String fx:value="font" />
+         </styleClass>
       </Button>
 
     </children>

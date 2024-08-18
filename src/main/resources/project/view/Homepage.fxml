@@ -20,13 +20,13 @@
             <String fx:value="font" />
          </styleClass>
       </Button>
-      <Button layoutX="128.0" layoutY="471.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="194.0" text="HOW TO PLAY" textAlignment="CENTER" textFill="WHITE">
+      <Button layoutX="128.0" layoutY="471.0" mnemonicParsing="false" onAction="#readInstruction" prefHeight="40.0" prefWidth="194.0" text="HOW TO PLAY" textAlignment="CENTER" textFill="WHITE">
          <styleClass>
             <String fx:value="black-container" />
             <String fx:value="font" />
          </styleClass>
       </Button>
-      <Button layoutX="128.0" layoutY="538.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="194.0" text="EXIT" textAlignment="CENTER" textFill="WHITE">
+      <Button layoutX="128.0" layoutY="538.0" mnemonicParsing="false" onAction="#exit" prefHeight="40.0" prefWidth="194.0" text="EXIT" textAlignment="CENTER" textFill="WHITE">
          <styleClass>
             <String fx:value="black-container" />
             <String fx:value="font" />

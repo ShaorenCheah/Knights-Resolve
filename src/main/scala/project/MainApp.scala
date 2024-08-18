@@ -3,7 +3,7 @@ package project
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.Scene
-import project.view.{ResultController, GameController, DifficultyController, HomepageController}
+import project.view.{InstructionController, ResultController, GameController, DifficultyController, HomepageController}
 import scalafx.Includes._
 import scalafxml.core.{FXMLLoader, NoDependencyResolver}
 import javafx.{scene => jfxs}
@@ -16,6 +16,7 @@ object MainApp extends JFXApp {
   var difficultyController: Option[DifficultyController#Controller] = None
   var gameController: Option[GameController#Controller] = None
   var resultController: Option[ResultController#Controller] = None
+  var instructionController: Option[InstructionController#Controller] = None
 
   // Method to initialize .fxml files which returns roots and controller
 
@@ -89,6 +90,19 @@ object MainApp extends JFXApp {
       scene = new Scene {
         root = roots4
         resultController.foreach(controller => controller.initialize(score))
+      }
+    }
+  }
+
+  // Display game guide
+  def showInstruction(): Unit = {
+    val (roots5, controller) = loadFXML[InstructionController#Controller]("view/Instruction.fxml")
+    instructionController = Option(controller)
+    stage = new PrimaryStage {
+      title = "Knight's Resolve"
+      resizable = false
+      scene = new Scene {
+        root = roots5
       }
     }
   }
