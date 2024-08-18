@@ -1,30 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="800.0" prefWidth="450.0" styleClass="background" stylesheets="@styles/Game.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.view.GameController">
+<AnchorPane prefHeight="800.0" prefWidth="450.0" styleClass="background" stylesheets="@styles/Game.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.view.GameController">
     <children>
-        <Text fx:id="scoreText" fill="WHITE" layoutX="1.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="font" text="Score: 0" textAlignment="CENTER" wrappingWidth="449.9999977409461" AnchorPane.bottomAnchor="745.203125" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="4.200002259053861" AnchorPane.topAnchor="23.0">
+        <Text fx:id="scoreText" fill="WHITE" layoutX="2.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="font" text="Score: 0" textAlignment="CENTER" wrappingWidth="449.9999977409461" AnchorPane.bottomAnchor="741.203125" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="3.2000022590538606" AnchorPane.topAnchor="27.0">
             <font>
                 <Font size="32.0" />
             </font>
         </Text>
-        <Text fx:id="livesText" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="font" text="Lives: 3" textAlignment="CENTER" wrappingWidth="452.0" AnchorPane.bottomAnchor="525.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="265.0">
+        <Text fx:id="livesText" layoutX="-1.0" layoutY="333.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="font" text="Lives: 3" textAlignment="CENTER" wrappingWidth="452.0" AnchorPane.bottomAnchor="467.203125" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="4.199999999999989" AnchorPane.topAnchor="323.0">
             <font>
                 <Font size="10.0" />
             </font>
         </Text>
-        <Text fx:id="timerText" layoutY="253.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="font" text="60 s" textAlignment="CENTER" wrappingWidth="451.3999938964844" AnchorPane.bottomAnchor="544.203125" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.600006103515625" AnchorPane.topAnchor="225.0">
+        <Text fx:id="timerText" layoutX="2.0" layoutY="239.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="font" text="60 s" textAlignment="CENTER" wrappingWidth="451.3999938964844" AnchorPane.bottomAnchor="561.203125" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="1.8000061035156136" AnchorPane.topAnchor="211.0">
             <font>
                 <Font size="28.0" />
             </font>
         </Text>
-        <Text fx:id="multiplierText" fill="WHITE" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="font" text="Multiplier: x0.0" textAlignment="CENTER" wrappingWidth="450.0000009536743" AnchorPane.bottomAnchor="721.203125" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="5.199999046325672" AnchorPane.topAnchor="69.0">
+        <Text fx:id="multiplierText" fill="WHITE" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="font" text="Multiplier: x0.0" textAlignment="CENTER" wrappingWidth="450.0000009536743" AnchorPane.bottomAnchor="733.203125" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="5.199999046325672" AnchorPane.topAnchor="59.0">
             <font>
-                <Font size="10.0" />
+                <Font size="8.0" />
             </font>
         </Text>
       <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="#00000099" height="87.0" layoutY="372.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="container" width="455.0" />
@@ -37,5 +40,6 @@
         </Text>
       <ImageView fx:id="banditView" fitHeight="160.0" fitWidth="122.0" layoutX="257.0" layoutY="539.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="101.203125" AnchorPane.leftAnchor="257.0" AnchorPane.rightAnchor="76.19999999999999" AnchorPane.topAnchor="539.0" />
       <ImageView fx:id="knightView" fitHeight="168.0" fitWidth="146.0" layoutX="59.0" layoutY="547.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="85.203125" AnchorPane.leftAnchor="59.0" AnchorPane.rightAnchor="250.2" AnchorPane.topAnchor="547.0" />
+      <FlowPane fx:id="livesFlow" layoutX="103.0" layoutY="255.0" prefHeight="46.0" prefWidth="251.0" />
     </children>
 </AnchorPane>
