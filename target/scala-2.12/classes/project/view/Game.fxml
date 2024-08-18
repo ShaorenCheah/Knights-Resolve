@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
@@ -26,13 +27,15 @@
                 <Font size="10.0" />
             </font>
         </Text>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000099" height="87.0" layoutY="372.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="container" width="455.0" />
-      <Circle fill="#ffffffa6" layoutX="228.0" layoutY="415.0" radius="61.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="container" />
+      <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="#00000099" height="87.0" layoutY="372.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="container" width="455.0" />
+      <Circle fx:id="circle" fill="#ffffffa6" layoutX="228.0" layoutY="415.0" radius="61.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="container" />
         <FlowPane fx:id="arrowPane" layoutY="372.0" prefHeight="87.0" prefWidth="455.0" AnchorPane.bottomAnchor="341.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="372.0" />
         <Text fx:id="comboText" fill="WHITE" layoutX="288.0" layoutY="390.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="font" text="COMBO x0" textAlignment="RIGHT" wrappingWidth="162.0" AnchorPane.bottomAnchor="410.0" AnchorPane.leftAnchor="288.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="378.0">
             <font>
                 <Font size="12.0" />
             </font>
         </Text>
+      <ImageView fx:id="banditView" fitHeight="160.0" fitWidth="122.0" layoutX="257.0" layoutY="539.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="101.203125" AnchorPane.leftAnchor="257.0" AnchorPane.rightAnchor="76.19999999999999" AnchorPane.topAnchor="539.0" />
+      <ImageView fx:id="knightView" fitHeight="168.0" fitWidth="146.0" layoutX="59.0" layoutY="547.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="85.203125" AnchorPane.leftAnchor="59.0" AnchorPane.rightAnchor="250.2" AnchorPane.topAnchor="547.0" />
     </children>
 </AnchorPane>

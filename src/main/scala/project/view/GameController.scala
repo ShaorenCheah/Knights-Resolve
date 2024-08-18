@@ -2,19 +2,23 @@ package project.view
 
 import project.MainApp
 import project.modal._
+import scalafx.Includes.handle
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.image.{Image, ImageView}
 import scalafx.scene.input.{KeyCode, KeyEvent}
-import scalafx.animation.AnimationTimer
+import scalafx.animation.{AnimationTimer, PauseTransition}
 import scalafx.geometry.{Insets, Pos}
 import scalafx.scene.layout.FlowPane
+import scalafx.scene.shape.{Circle, Rectangle}
 import scalafx.scene.text.Text
+import scalafx.util.Duration
 import scalafxml.core.macros.sfxml
 
 import scala.collection.mutable.ArrayBuffer
 
+
 @sfxml
-class GameController(val timerText: Text, val multiplierText: Text, val comboText: Text, val scoreText: Text, val livesText: Text, val arrowPane: FlowPane) {
+class GameController(val timerText: Text, val multiplierText: Text, val comboText: Text, val scoreText: Text, val livesText: Text, val arrowPane: FlowPane, val knightView: ImageView, val banditView: ImageView, val rectangle: Rectangle, val circle: Circle) {
 
   private var stage: PrimaryStage = _
   private var difficulty: Difficulty = Easy // Default difficulty
@@ -36,7 +40,7 @@ class GameController(val timerText: Text, val multiplierText: Text, val comboTex
   private var timeLeft: Int = gameDuration
   private var timer: AnimationTimer = _
 
-  // Create 5 fixed slots for arrows using ImageView
+  // Create 5 fixed slots for directions using ImageView
   private val arrowImages: Seq[ImageView] = Seq.fill(5)(new ImageView())
   private val arrowKeysList: ArrayBuffer[KeyCode] = ArrayBuffer.fill(5)(KeyCode.Space) // Initialize with default KeyCode
 
@@ -48,6 +52,22 @@ class GameController(val timerText: Text, val multiplierText: Text, val comboTex
     arrowPane.hgap = 15
   })
   arrowPane.alignment = Pos.Center
+
+  // Load GIFs for the knight
+  private val knightIdleGif = new Image(getClass.getResource("/project/images/knight/knight_idle.gif").toExternalForm)
+  private val knightAttackGif = new Image(getClass.getResource("/project/images/knight/knight_attack.gif").toExternalForm)
+  private val knightHurtGif = new Image(getClass.getResource("/project/images/knight/knight_hurt.gif").toExternalForm)
+  private val knightKillGif = new Image(getClass.getResource("/project/images/knight/knight_kill.gif").toExternalForm)
+  private val knightDeathGif = new Image(getClass.getResource("/project/images/knight/knight_death.gif").toExternalForm)
+
+  // Load GIFs for the bandit
+  private val banditIdleGif = new Image(getClass.getResource("/project/images/bandit/bandit_idle.gif").toExternalForm)
+  private val banditHurtGif = new Image(getClass.getResource("/project/images/bandit/bandit_hurt.gif").toExternalForm)
+  private val banditAttackGif = new Image(getClass.getResource("/project/images/bandit/bandit_attack.gif").toExternalForm)
+  private val banditDeathGif = new Image(getClass.getResource("/project/images/bandit/bandit_death.gif").toExternalForm)
+
+  // Set default GIFs
+  idleState()
 
   // Method to set the primary stage for the controller
   def setStage(stage: PrimaryStage): Unit = {
@@ -88,7 +108,7 @@ class GameController(val timerText: Text, val multiplierText: Text, val comboTex
   }
 
   // Update the arrow sequence
-  def updateArrows(): Unit = {
+  private def updateArrows(): Unit = {
     // Generate a new arrow
     val newArrow = directionHandler.generateRandomArrow()
 
@@ -111,7 +131,6 @@ class GameController(val timerText: Text, val multiplierText: Text, val comboTex
     updateExpectedArrow()
   }
 
-
   // Retrieve the expected arrow from the list
   private def expectedArrow: KeyCode = arrowKeysList(2)
 
@@ -133,15 +152,103 @@ class GameController(val timerText: Text, val multiplierText: Text, val comboTex
   def onKeyPressed(event: KeyEvent): Unit = {
     if (event.code == expectedArrow) {
       combo += 1
-      multiplier = difficulty.baseMultiplier + (Math.ceil(combo / 10.0) * difficulty.comboIncrement)
-      score += (10 * multiplier).toInt
+      multiplier = difficulty.baseMultiplier + (Math.ceil(combo / 5.0) * difficulty.comboIncrement)
+      score += (5 * multiplier).toInt
       updateArrows()
+      if((combo%5) == 0){
+        knightKill()
+      }
+      knightAtack()
     } else if (arrowKeys.contains(event.code) && event.code != expectedArrow) {
       combo = 0
       multiplier = difficulty.baseMultiplier
       lives -= 1
+      banditAtack()
     }
     updateUI()
+  }
+
+  private def idleState() = {
+    knightView.image = knightIdleGif
+    knightView.setFitHeight(140)
+    knightView.setFitWidth(140)
+
+    banditView.image = banditIdleGif
+    banditView.setFitHeight(140)
+    banditView.setFitWidth(110)
+  }
+
+  private var isAnimating = false
+  private val animationDuration = Duration(500) // Duration of the delay
+
+  private val sharedPauseTransition = new PauseTransition(animationDuration) {
+    onFinished = handle {
+      idleState()
+      isAnimating = false // Reset animation state
+    }
+  }
+
+  private def returnIdle(): Unit = {
+    if (!isAnimating) {
+      isAnimating = true
+      sharedPauseTransition.play() // Start the delay
+    }
+  }
+
+  private def knightAtack(): Unit = {
+    if (isAnimating) return // Skip if already animating
+
+    knightView.image = knightAttackGif
+    knightView.setFitHeight(210)
+    knightView.setFitWidth(230)
+
+    banditView.image = banditHurtGif
+    banditView.setFitHeight(130)
+    banditView.setFitWidth(105)
+
+    returnIdle()
+  }
+
+  private def banditAtack(): Unit = {
+    if (isAnimating) return // Skip if already animating
+
+    knightView.image = knightHurtGif
+    knightView.setFitHeight(150)
+    knightView.setFitWidth(140)
+
+    banditView.image = banditAttackGif
+    banditView.setFitHeight(150)
+    banditView.setFitWidth(110)
+
+    returnIdle()
+  }
+
+  private def knightKill(): Unit = {
+    if (isAnimating) return // Skip if already animating
+    knightView.image = knightKillGif
+    knightView.setFitHeight(210)
+    knightView.setFitWidth(230)
+
+    banditView.image = banditDeathGif
+    banditView.setFitHeight(180)
+    banditView.setFitWidth(140)
+
+    returnIdle()
+  }
+
+  private def knightDeath(callback: () => Unit): Unit = {
+    knightView.image = knightDeathGif
+    knightView.setFitHeight(210)
+    knightView.setFitWidth(220)
+
+    banditView.image = banditAttackGif
+    banditView.setFitHeight(150)
+    banditView.setFitWidth(110)
+
+    // Create a PauseTransition to delay
+    val delay = new PauseTransition(Duration(500))
+    delay.setOnFinished(_ => callback()) // Call the callback function after the delay
+    delay.play() // Start the delay
   }
 
   // Update UI elements
@@ -163,11 +270,18 @@ class GameController(val timerText: Text, val multiplierText: Text, val comboTex
       timeLeft = (gameDuration.toLong - currentTime).toInt
       if (lives <= 0 || timeLeft <= 0) {
         timer.stop() // Stop the AnimationTimer
-        endGame()
+        arrowKeysList.clear
+        arrowPane.setVisible(false)
+        circle.setVisible(false)
+        rectangle.setVisible(false)
+        if (lives == 0) {
+          knightDeath(() => endGame()) // Call endGame after the delay
+        } else {
+          endGame()
+        }
       }
       updateUI()
     }
-
     timer.start()
   }
 
