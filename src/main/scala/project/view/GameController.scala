@@ -71,7 +71,7 @@ class GameController(val timerText: Text, val multiplierText: Text, val comboTex
   }
 
   // Initialize DirectionHandler
-  private val directionHandler = new DirectionHandler()
+  private val directionHandler = new Direction()
 
   // Initialize the arrow sequence
   private def generateInitialArrows(): Unit = {

@@ -1,11 +1,11 @@
-package project.view
+package project.modal
 
 import scalafx.scene.image.Image
 import scalafx.scene.input.KeyCode
 
 import scala.util.Random
 
-class DirectionHandler {
+class Direction {
   private val arrowKeys = List(KeyCode.Left, KeyCode.Right, KeyCode.Up, KeyCode.Down)
   private var expectedArrow: KeyCode = KeyCode.Left
 
