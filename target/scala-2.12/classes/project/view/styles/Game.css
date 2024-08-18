@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=Press+Start+2P&display=swap');
+
+.font {
+    -fx-font-family: 'Press Start 2P', sans-serif;
+}
+
+.background {
+    -fx-background-image: url('/project/images/battle_bg.png');
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
+
+.container {
+    -fx-background-color: rgba(0,0,0,0.6);
+    -fx-border-color: none;
+}
