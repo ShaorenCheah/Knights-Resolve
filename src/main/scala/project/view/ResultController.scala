@@ -7,24 +7,30 @@ import scalafx.scene.text.Text
 import scalafxml.core.macros.sfxml
 
 @sfxml
-class ResultController(val scoreText: Text, val backButton: Button) {
+class ResultController(val scoreText: Text, val resultText: Text) {
+
+  // Initialize the UI
   def initialize(score: Int, victory: Boolean): Unit = {
     if(victory){
       Audio.playBgm("/project/audio/victory.mp3")
+      resultText.text = "VICTORY"
     }else{
       Audio.playBgm("/project/audio/defeat.mp3")
+      resultText.text = "GAME OVER"
     }
 
     scoreText.text = s"$score"
   }
 
+  // Redirect to select difficulty
   def retry(): Unit = {
-    Audio.playSfx("/project/audio/click.mp3")
+    Audio.buttonClick()
     MainApp.showDifficulty()
   }
 
+  // Return to homepage
   def goBack(){
-    Audio.playSfx("/project/audio/click.mp3")
+    Audio.buttonClick()
     MainApp.showHomepage()
   }
 

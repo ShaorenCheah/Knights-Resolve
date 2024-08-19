@@ -6,17 +6,23 @@ import scalafxml.core.macros.sfxml
 
 @sfxml
 class RootLayoutController {
+
+  // Return to homepage
   def returnHome(): Unit = {
+    Audio.buttonClick()
     MainApp.showHomepage()
   }
 
+  // Show how to play
   def viewInstruction() = {
-    Audio.playSfx("/project/audio/click.mp3")
+    Audio.buttonClick()
     MainApp.showInstruction()
   }
 
+  // Exit the application
   def exit() = {
-    Audio.playSfx("/project/audio/click.mp3")
+    Audio.buttonClick()
     System.exit(0)
   }
+
 }

@@ -32,7 +32,7 @@
             <String fx:value="font" />
          </styleClass>
       </Button>
-      <Text fill="WHITE" layoutX="154.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="font" text="GAME OVER" wrappingWidth="145.0">
+      <Text fx:id="resultText" fill="WHITE" layoutX="96.0" layoutY="222.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="font" text="VICTORY" textAlignment="CENTER" wrappingWidth="262.91405856609344">
          <font>
             <Font size="36.0" />
          </font></Text>

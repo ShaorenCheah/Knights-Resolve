@@ -3,10 +3,11 @@ package project
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.Scene
-import project.view.{InstructionController, ResultController, GameController, DifficultyController, HomepageController}
+import project.view.{DifficultyController, GameController, HomepageController, InstructionController, ResultController}
 import scalafx.Includes._
 import scalafxml.core.{FXMLLoader, NoDependencyResolver}
 import javafx.{scene => jfxs}
+import scalafx.scene.image.Image
 
 
 object MainApp extends JFXApp {
@@ -35,6 +36,7 @@ object MainApp extends JFXApp {
     stage = new PrimaryStage {
       title = "Knight's Resolve"
       resizable = false
+      icons += new Image(getClass.getResourceAsStream("/project/images/logo.png"))
       scene = new Scene {
         root = roots1
       }
@@ -48,7 +50,6 @@ object MainApp extends JFXApp {
     difficultyController = Option(controller)
     stage = new PrimaryStage {
       title = "Knight's Resolve"
-      resizable = false
       scene = new Scene {
         root = roots2
         difficultyController.foreach(controller => controller.initialize())
@@ -82,7 +83,6 @@ object MainApp extends JFXApp {
     resultController = Option(controller)
     stage = new PrimaryStage {
       title = "Knight's Resolve"
-      resizable = false
       scene = new Scene {
         root = roots4
         resultController.foreach(controller => controller.initialize(score, victory))
@@ -96,7 +96,6 @@ object MainApp extends JFXApp {
     instructionController = Option(controller)
     stage = new PrimaryStage {
       title = "Knight's Resolve"
-      resizable = false
       scene = new Scene {
         root = roots5
       }

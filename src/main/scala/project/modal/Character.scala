@@ -98,7 +98,7 @@ class Character(imageView: ImageView, characterType: String) {
     imageView.image = deathGif
     imageView.setFitHeight(210)
     imageView.setFitWidth(220)
-    val deathTransition = new PauseTransition(Duration(500)) {
+    val deathTransition = new PauseTransition(Duration(450)) {
       onFinished = handle {
         setIdle()
         onComplete() // Execute the callback function when death animation completes

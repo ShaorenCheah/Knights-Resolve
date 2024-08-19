@@ -166,21 +166,25 @@ class GameController(
     multiplierText.setVisible(false)
   }
 
+  // Starts the timer for the game
   def startGame(): Unit = {
     timer = AnimationTimer { now =>
       if (elapsedTime == 0L) elapsedTime = now // Initialize the timer to start from 0 for AnimationTimer
       val currentTime = (now - elapsedTime) / 1e9.toInt // Calculate elapsed time
       timeLeft = (gameDuration.toLong - currentTime).toInt // Update time left
 
+      // End game if no more time or lives
       if (lives <= 0 || timeLeft <= 0) {
         timer.stop()
         directionHandler.arrowImages.foreach(_.image = null)
+        hideElements()
+        // If no more lives
         if (lives == 0) {
           victory = false
-          hideElements()
           bandit.performAttack()
           knight.knightDeath(() => endGame())
         } else {
+          // If time elapsed but no score earned
           if (score == 0) {
             victory = false
           }
@@ -192,8 +196,9 @@ class GameController(
     timer.start()
   }
 
+  // End game and pass score and victory condition
   private def endGame(): Unit = {
-    MainApp.showResult(this.score, this.victory)
+    MainApp.showResult(score, victory)
   }
 
 }
