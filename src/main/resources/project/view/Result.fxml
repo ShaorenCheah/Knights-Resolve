@@ -36,7 +36,7 @@
          <font>
             <Font size="36.0" />
          </font></Text>
-      <Button layoutX="86.0" layoutY="511.0" mnemonicParsing="false" onAction="#goBack" prefHeight="40.0" prefWidth="283.0" text="RETRY">
+      <Button layoutX="86.0" layoutY="511.0" mnemonicParsing="false" onAction="#retry" prefHeight="40.0" prefWidth="283.0" text="RETRY">
          <font>
             <Font size="18.0" />
          </font>
