@@ -7,8 +7,9 @@ import scalafxml.core.macros.sfxml
 @sfxml
 class InstructionController {
 
+  // Return back to homepage
   def back(): Unit = {
-    Audio.playSfx("/project/audio/click.mp3")
+    Audio.buttonClick()
     MainApp.showHomepage()
   }
 }

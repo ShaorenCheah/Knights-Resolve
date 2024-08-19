@@ -6,13 +6,13 @@
 }
 
 .battle-background {
-    -fx-background-image: url('/project/images/battle_bg.png');
+    -fx-background-image: url('/project/images/battle-bg.png');
     -fx-background-size: cover;
     -fx-background-position: center center;
 }
 
 .castle-background {
-    -fx-background-image: url('/project/images/castle_bg.png');
+    -fx-background-image: url('/project/images/castle-bg.png');
     -fx-background-size: cover;
     -fx-background-position: center center;
 }

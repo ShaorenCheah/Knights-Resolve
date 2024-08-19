@@ -1,6 +1,6 @@
 package project.modal
 
-// Difficulty.scala
+// Traits for difficulty
 trait Difficulty {
   def lives: Int
   def baseMultiplier: Double

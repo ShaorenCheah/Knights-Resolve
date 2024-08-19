@@ -3,23 +3,23 @@ package project
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.Scene
-import project.view.{InstructionController, ResultController, GameController, DifficultyController, HomepageController}
+import project.view.{DifficultyController, GameController, HomepageController, InstructionController, ResultController}
 import scalafx.Includes._
 import scalafxml.core.{FXMLLoader, NoDependencyResolver}
 import javafx.{scene => jfxs}
+import scalafx.scene.image.Image
 
 
 object MainApp extends JFXApp {
 
-  // Initialize empty controllers for views
+  // Initialize empty controllers for each views
   var homepageController: Option[HomepageController#Controller] = None
   var difficultyController: Option[DifficultyController#Controller] = None
   var gameController: Option[GameController#Controller] = None
   var resultController: Option[ResultController#Controller] = None
   var instructionController: Option[InstructionController#Controller] = None
 
-  // Method to initialize .fxml files which returns roots and controller
-
+  // Generic method to initialize .fxml files which returns roots and controller
   private def loadFXML[A](fileName: String): (jfxs.Parent, A) = {
     val resource = getClass.getResource(fileName)
     val loader = new FXMLLoader(resource, NoDependencyResolver)
@@ -36,6 +36,7 @@ object MainApp extends JFXApp {
     stage = new PrimaryStage {
       title = "Knight's Resolve"
       resizable = false
+      icons += new Image(getClass.getResourceAsStream("/project/images/logo.png"))
       scene = new Scene {
         root = roots1
       }
@@ -49,7 +50,6 @@ object MainApp extends JFXApp {
     difficultyController = Option(controller)
     stage = new PrimaryStage {
       title = "Knight's Resolve"
-      resizable = false
       scene = new Scene {
         root = roots2
         difficultyController.foreach(controller => controller.initialize())
@@ -59,17 +59,14 @@ object MainApp extends JFXApp {
 
   // Display the game scene
   def showGame(difficulty: String): Unit = {
-    val (roots3, controller) = loadFXML[GameController#Controller]("/project/view/Game.fxml")
+    val (roots3, controller) = loadFXML[GameController#Controller]("view/Game.fxml")
     gameController = Option(controller)
     stage = new PrimaryStage {
       title = "Knight's Resolve"
       resizable = false
       scene = new Scene {
         root = roots3
-        gameController.foreach(controller =>{
-          controller.setStage(stage)
-          controller.setDifficulty(difficulty)
-        })
+        gameController.foreach(controller => controller.initialize(stage, difficulty))
       }
     }
     // Event handler to read user input
@@ -86,7 +83,6 @@ object MainApp extends JFXApp {
     resultController = Option(controller)
     stage = new PrimaryStage {
       title = "Knight's Resolve"
-      resizable = false
       scene = new Scene {
         root = roots4
         resultController.foreach(controller => controller.initialize(score, victory))
@@ -100,10 +96,10 @@ object MainApp extends JFXApp {
     instructionController = Option(controller)
     stage = new PrimaryStage {
       title = "Knight's Resolve"
-      resizable = false
       scene = new Scene {
         root = roots5
       }
     }
   }
+
 }
