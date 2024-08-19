@@ -19,43 +19,38 @@ import scala.collection.mutable.ArrayBuffer
 
 @sfxml
 class GameController(val timerText: Text, val multiplierText: Text, val comboText: Text, val scoreText: Text, val arrowPane: FlowPane, val livesPane: FlowPane, val knightView: ImageView, val banditView: ImageView, val rectangle: Rectangle, val circle: Circle) {
-  Audio.playBgm("/project/audio/battle.mp3")
 
   private var stage: PrimaryStage = _
-  private var difficulty: Difficulty = Easy // Default difficulty
   private var score: Int = 0
-  private var multiplier: Double = difficulty.baseMultiplier
   private var combo: Int = 0
-  private var lives: Int = difficulty.lives
-  private def arrowKeys: Set[KeyCode] = Set(KeyCode.Left, KeyCode.Up, KeyCode.Right, KeyCode.Down)
+  private var victory = true
 
+  private var difficulty: Difficulty = Easy // Default difficulty
+  private var multiplier: Double = difficulty.baseMultiplier
+  private var lives: Int = difficulty.lives
   private val difficultyMap: Map[String, Difficulty] = Map(
     "Easy" -> Easy,
     "Normal" -> Normal,
     "Hard" -> Hard
   )
 
+  // Initialize DirectionHandler
+  private val directionHandler = new Direction()
+  private def arrowKeys: Set[KeyCode] = Set(KeyCode.Left, KeyCode.Up, KeyCode.Right, KeyCode.Down)
+  private val arrowKeysList: ArrayBuffer[KeyCode] = ArrayBuffer.fill(5)(KeyCode.Space) // Initialize with default KeyCode
+  private def expectedArrow: KeyCode = arrowKeysList(2) // Expected arrow is stored in the middle of the list
+
+  // Get life image
   private val lifeImage = new Image(getClass.getResource("/project/images/heart_full.png").toExternalForm)
-  private var victory = true
+
+  // Create 5 fixed slots for directions using ImageView
+  private val arrowImages: Seq[ImageView] = Seq.fill(5)(new ImageView())
 
   // Timer to set game duration
   private val gameDuration: Int = 60
   private var elapsedTime: Long = 0L
   private var timeLeft: Int = gameDuration
   private var timer: AnimationTimer = _
-
-  // Create 5 fixed slots for directions using ImageView
-  private val arrowImages: Seq[ImageView] = Seq.fill(5)(new ImageView())
-  private val arrowKeysList: ArrayBuffer[KeyCode] = ArrayBuffer.fill(5)(KeyCode.Space) // Initialize with default KeyCode
-
-  // Add all ImageView components to the FlowPane
-  arrowImages.foreach(imageView => {
-    imageView.setFitHeight(50) // Default image height
-    imageView.setFitWidth(50)  // Default image width
-    arrowPane.children.add(imageView)
-    arrowPane.hgap = 15
-  })
-  arrowPane.alignment = Pos.Center
 
   // Load GIFs for the knight
   private val knightIdleGif = new Image(getClass.getResource("/project/images/knight/knight_idle.gif").toExternalForm)
@@ -70,17 +65,32 @@ class GameController(val timerText: Text, val multiplierText: Text, val comboTex
   private val banditAttackGif = new Image(getClass.getResource("/project/images/bandit/bandit_attack.gif").toExternalForm)
   private val banditDeathGif = new Image(getClass.getResource("/project/images/bandit/bandit_death.gif").toExternalForm)
 
-  // Set default GIFs
-  idleState()
-
-  // Method to set the primary stage for the controller
-  def setStage(stage: PrimaryStage): Unit = {
+  // Method to initialize the game scene
+  def initialize(stage: PrimaryStage, difficulty: String): Unit = {
+    // Set the primary stage for the controller
     this.stage = stage
+
+    // Set the BGM
+    Audio.playBgm("/project/audio/battle.mp3")
+
+    // Initialize difficulty
+    setDifficulty(difficulty)
+
+    // Add all ImageView components to the FlowPane
+    arrowImages.foreach(imageView => {
+      imageView.setFitHeight(50) // Default image height
+      imageView.setFitWidth(50)  // Default image width
+      arrowPane.children.add(imageView)
+      arrowPane.hgap = 15
+    })
+    arrowPane.alignment = Pos.Center
+
+    // Set default GIFs
+    idleState()
   }
 
   // Set the difficulty and update game parameters
   def setDifficulty(difficultyName: String): Unit = {
-    println(s"Attempting to set difficulty to: $difficultyName") // Debug statement
     difficultyMap.get(difficultyName) match {
       case Some(difficulty) =>
         this.difficulty = difficulty
@@ -109,9 +119,6 @@ class GameController(val timerText: Text, val multiplierText: Text, val comboTex
       livesPane.setAlignment(Pos.Center)
     }
   }
-
-  // Initialize DirectionHandler
-  private val directionHandler = new Direction()
 
   // Initialize the arrow sequence
   private def generateInitialArrows(): Unit = {
@@ -151,9 +158,6 @@ class GameController(val timerText: Text, val multiplierText: Text, val comboTex
     updateExpectedArrow()
   }
 
-  // Retrieve the expected arrow from the list
-  private def expectedArrow: KeyCode = arrowKeysList(2)
-
   // Set the expected arrow and enlarge it
   private def updateExpectedArrow(): Unit = {
     for (i <- arrowImages.indices) {
@@ -176,11 +180,11 @@ class GameController(val timerText: Text, val multiplierText: Text, val comboTex
       score += (5 * multiplier).toInt
       updateArrows()
       if((combo%5) == 0){
-        Audio.playSfx("/project/audio/slash.mp3")
-        Audio.playSfx("/project/audio/kill.mp3")
+        Audio.playSlash()
+        Audio.playKill()
         knightKill()
       }else{
-        Audio.playSfx("/project/audio/slash.mp3")
+        Audio.playSlash()
         knightAtack()
       }
     } else if (arrowKeys.contains(event.code) && event.code != expectedArrow) {
@@ -189,7 +193,7 @@ class GameController(val timerText: Text, val multiplierText: Text, val comboTex
       lives -= 1
       updateLivesPane()
       banditAtack()
-      Audio.playSfx("/project/audio/hurt.mp3")
+      Audio.playHurt()
     }
     updateUI()
   }

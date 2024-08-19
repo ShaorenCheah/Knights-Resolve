@@ -9,17 +9,17 @@ class HomepageController() {
   Audio.playBgm("/project/audio/home.mp3")
 
   def readInstruction() = {
-    Audio.playSfx("/project/audio/click.mp3")
+    Audio.buttonClick()
     MainApp.showInstruction()
   }
 
   def selectDifficulty(): Unit = {
-    Audio.playSfx("/project/audio/click.mp3")
+    Audio.buttonClick()
     MainApp.showDifficulty()
   }
 
-  def exit() = {
-    Audio.playSfx("/project/audio/click.mp3")
+  def exit(): Unit = {
+    Audio.buttonClick()
     System.exit(0)
   }
 }

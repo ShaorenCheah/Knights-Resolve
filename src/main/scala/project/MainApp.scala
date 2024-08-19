@@ -11,15 +11,14 @@ import javafx.{scene => jfxs}
 
 object MainApp extends JFXApp {
 
-  // Initialize empty controllers for views
+  // Initialize empty controllers for each views
   var homepageController: Option[HomepageController#Controller] = None
   var difficultyController: Option[DifficultyController#Controller] = None
   var gameController: Option[GameController#Controller] = None
   var resultController: Option[ResultController#Controller] = None
   var instructionController: Option[InstructionController#Controller] = None
 
-  // Method to initialize .fxml files which returns roots and controller
-
+  // Generic method to initialize .fxml files which returns roots and controller
   private def loadFXML[A](fileName: String): (jfxs.Parent, A) = {
     val resource = getClass.getResource(fileName)
     val loader = new FXMLLoader(resource, NoDependencyResolver)
@@ -59,17 +58,14 @@ object MainApp extends JFXApp {
 
   // Display the game scene
   def showGame(difficulty: String): Unit = {
-    val (roots3, controller) = loadFXML[GameController#Controller]("/project/view/Game.fxml")
+    val (roots3, controller) = loadFXML[GameController#Controller]("view/Game.fxml")
     gameController = Option(controller)
     stage = new PrimaryStage {
       title = "Knight's Resolve"
       resizable = false
       scene = new Scene {
         root = roots3
-        gameController.foreach(controller =>{
-          controller.setStage(stage)
-          controller.setDifficulty(difficulty)
-        })
+        gameController.foreach(controller => controller.initialize(stage, difficulty))
       }
     }
     // Event handler to read user input
@@ -106,4 +102,5 @@ object MainApp extends JFXApp {
       }
     }
   }
+
 }
