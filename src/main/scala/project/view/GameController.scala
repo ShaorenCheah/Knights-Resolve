@@ -19,6 +19,7 @@ import scala.collection.mutable.ArrayBuffer
 
 @sfxml
 class GameController(val timerText: Text, val multiplierText: Text, val comboText: Text, val scoreText: Text, val arrowPane: FlowPane, val livesPane: FlowPane, val knightView: ImageView, val banditView: ImageView, val rectangle: Rectangle, val circle: Circle) {
+  Audio.playBgm("/project/audio/battle.mp3")
 
   private var stage: PrimaryStage = _
   private var difficulty: Difficulty = Easy // Default difficulty
@@ -35,6 +36,7 @@ class GameController(val timerText: Text, val multiplierText: Text, val comboTex
   )
 
   private val lifeImage = new Image(getClass.getResource("/project/images/heart_full.png").toExternalForm)
+  private var victory = true
 
   // Timer to set game duration
   private val gameDuration: Int = 60
@@ -174,15 +176,20 @@ class GameController(val timerText: Text, val multiplierText: Text, val comboTex
       score += (5 * multiplier).toInt
       updateArrows()
       if((combo%5) == 0){
+        Audio.playSfx("/project/audio/slash.mp3")
+        Audio.playSfx("/project/audio/kill.mp3")
         knightKill()
+      }else{
+        Audio.playSfx("/project/audio/slash.mp3")
+        knightAtack()
       }
-      knightAtack()
     } else if (arrowKeys.contains(event.code) && event.code != expectedArrow) {
       combo = 0
       multiplier = difficulty.baseMultiplier
       lives -= 1
       updateLivesPane()
       banditAtack()
+      Audio.playSfx("/project/audio/hurt.mp3")
     }
     updateUI()
   }
@@ -293,8 +300,12 @@ class GameController(val timerText: Text, val multiplierText: Text, val comboTex
         circle.setVisible(false)
         rectangle.setVisible(false)
         if (lives == 0) {
+          victory = false
           knightDeath(() => endGame()) // Call endGame after the delay
         } else {
+          if(score == 0){
+            victory = false
+          }
           endGame()
         }
       }
@@ -305,6 +316,6 @@ class GameController(val timerText: Text, val multiplierText: Text, val comboTex
 
   // End the game and display final score
   private def endGame(): Unit = {
-    MainApp.showResult(this.score)
+    MainApp.showResult(this.score, this.victory)
   }
 }

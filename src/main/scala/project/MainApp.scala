@@ -81,7 +81,7 @@ object MainApp extends JFXApp {
   }
 
   // Display game result
-  def showResult(score: Int): Unit = {
+  def showResult(score: Int, victory: Boolean): Unit = {
     val (roots4, controller) = loadFXML[ResultController#Controller]("view/Result.fxml")
     resultController = Option(controller)
     stage = new PrimaryStage {
@@ -89,7 +89,7 @@ object MainApp extends JFXApp {
       resizable = false
       scene = new Scene {
         root = roots4
-        resultController.foreach(controller => controller.initialize(score))
+        resultController.foreach(controller => controller.initialize(score, victory))
       }
     }
   }
